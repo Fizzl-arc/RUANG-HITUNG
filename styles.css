@@ -1,0 +1,20 @@
+:root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { background: #101513; color: #e8eee9; font-family: 'DM Sans', sans-serif; }
+    button, input { font: inherit; }
+    button:focus-visible, input:focus-visible { outline: 2px solid #9de5bd; outline-offset: 3px; }
+    .grid-paper { background-image: linear-gradient(rgba(157,229,189,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(157,229,189,.045) 1px, transparent 1px); background-size: 30px 30px; }
+    .tab-panel { display: none; animation: enter .28s ease both; }
+    .tab-panel.active { display: block; }
+    @keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes reveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { animation: reveal .5s ease both; }
+    .nav-link[aria-current="page"] { color: #9de5bd; background: rgba(157,229,189,.09); }
+    .progress-track { height: 3px; background: #29332e; }
+    .progress-fill { height: 100%; background: #9de5bd; transition: width .3s ease; }
+    .option-button { transition: border-color .18s, background .18s, transform .18s; }
+    .option-button:not(:disabled):hover { border-color: #9de5bd; background: rgba(157,229,189,.07); transform: translateY(-1px); }
+    .option-button.correct { border-color: #9de5bd; color: #9de5bd; background: rgba(157,229,189,.1); }
+    .option-button.incorrect { border-color: #ff967d; color: #ff967d; background: rgba(255,150,125,.09); }
+    ::selection { background: rgba(157,229,189,.25); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
