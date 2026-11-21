@@ -1,113 +1,597 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<!doctype html>
+<html lang="id">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101513">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ef">
+  <meta name="description"
+    content="Belajar fungsi, komposisi, invers, dan fungsi linear secara interaktif di Ruang Hitung.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <title>Ruang Hitung — Belajar Fungsi</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <script src="./tailwind.config.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="./styles/tokens.css">
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body class="min-h-screen antialiased">
-  <header class="sticky top-0 z-30 border-b border-line bg-ink/95 backdrop-blur-md">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-      <button class="flex items-center gap-3 text-left" data-tab="home" aria-label="Ke Beranda">
-        <span class="grid h-9 w-9 place-items-center rounded-sm bg-mint text-ink"><i class="fa-solid fa-sigma text-lg" aria-hidden="true"></i></span>
-        <span><span class="block font-display text-sm font-bold tracking-wide">Ruang Hitung</span><span class="block text-[10px] uppercase tracking-[.15em] text-muted">Fungsi, jadi masuk akal</span></span>
+
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top app-navbar">
+    <div class="container">
+      <a class="navbar-brand brand-lockup" href="#" data-tab="home" aria-label="Ruang Hitung, beranda">
+        <span class="brand-mark" aria-hidden="true">Σ</span>
+        <span><strong>Ruang Hitung</strong><small>Fungsi, jadi masuk akal</small></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation"
+        aria-controls="mainNavigation" aria-expanded="false" aria-label="Buka navigasi">
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <nav class="flex items-center gap-1 overflow-x-auto" aria-label="Navigasi utama">
-        <button class="nav-link whitespace-nowrap rounded-sm px-3 py-2 text-xs font-semibold text-muted transition hover:text-paper sm:px-4" data-tab="home" aria-current="page"><i class="fa-solid fa-house mr-1.5" aria-hidden="true"></i>Beranda</button>
-        <button class="nav-link whitespace-nowrap rounded-sm px-3 py-2 text-xs font-semibold text-muted transition hover:text-paper sm:px-4" data-tab="functions"><i class="fa-solid fa-chart-line mr-1.5" aria-hidden="true"></i><span class="hidden sm:inline">Modul </span>Fungsi</button>
-        <button class="nav-link whitespace-nowrap rounded-sm px-3 py-2 text-xs font-semibold text-muted transition hover:text-paper sm:px-4" data-tab="game"><i class="fa-solid fa-bolt mr-1.5" aria-hidden="true"></i>Mini Game</button>
-      </nav>
+      <div class="collapse navbar-collapse" id="mainNavigation">
+        <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <button class="nav-link active" data-tab="home" aria-current="page"><i
+              class="bi bi-house-door me-1"></i>Beranda</button>
+          <button class="nav-link" data-tab="functions"><i class="bi bi-graph-up-arrow me-1"></i>Fungsi</button>
+          <button class="nav-link" data-tab="game"><i class="bi bi-lightning-charge me-1"></i>Quiz</button>
+        </div>
+        <span class="nav-note ms-lg-3"><i class="bi bi-cup-hot me-1"></i>Belajar santai, pasti paham</span>
+      </div>
     </div>
-  </header>
-  <main class="mx-auto max-w-7xl px-4 pb-16 pt-7 sm:px-6 sm:pt-10 lg:px-8">
+  </nav>
+
+  <main class="container app-main">
     <section id="panel-home" class="tab-panel active" aria-labelledby="home-title">
-      <div class="grid-paper relative overflow-hidden border border-line bg-panel px-6 py-9 sm:px-10 sm:py-12">
-        <div class="absolute right-8 top-8 hidden rotate-[-8deg] font-mono text-5xl text-mint/10 sm:block" aria-hidden="true">f⁻¹</div>
-        <p class="mb-4 font-mono text-xs uppercase tracking-[.18em] text-mint">Kelas interaktif / 01</p>
-        <h1 id="home-title" class="max-w-2xl font-display text-4xl font-semibold leading-tight text-paper sm:text-5xl">Fungsi lebih mudah saat <span class="text-mint">kamu ikut menghitung.</span></h1>
-        <p class="mt-4 max-w-xl text-sm leading-6 text-muted sm:text-base">Pelajari konsep fungsi, komposisi, invers, domain, dan range melalui penjelasan singkat, simulator interaktif, dan kuis.</p>
-        <button data-tab="functions" class="mt-7 inline-flex items-center gap-2 rounded-sm bg-mint px-4 py-3 text-sm font-bold text-ink transition hover:bg-[#b6f0cf]">Mulai belajar <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i></button>
+      <div class="hero-card grid-paper">
+        <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+        <div class="hero-content">
+          <span class="eyebrow"><i class="bi bi-stars me-2"></i>KELAS INTERAKTIF / 01</span>
+          <h1 id="home-title">Fungsi lebih mudah saat <span>kamu ikut menghitung.</span></h1>
+          <p>Pelajari konsep fungsi, komposisi, invers, domain, dan range melalui materi ringkas, simulator, dan
+            tantangan seru.</p>
+          <button class="btn btn-sage btn-lg mt-2" data-tab="functions">Mulai belajar <i
+              class="bi bi-arrow-right ms-2"></i></button>
+        </div>
+        <div class="hero-equation" aria-hidden="true">f(x) = ax + b</div>
       </div>
-      <div class="mt-8 grid gap-4 md:grid-cols-2">
-        <button data-tab="functions" class="group border border-line bg-panel p-5 text-left transition hover:border-mint/60">
-          <span class="flex items-center justify-between"><span class="font-mono text-xs text-muted">01 / RELASI &amp; PEMETAAN</span><i class="fa-solid fa-arrow-up-right-from-square text-xs text-muted group-hover:text-mint" aria-hidden="true"></i></span>
-          <span class="mt-7 block font-display text-xl font-semibold">Materi Fungsi</span><span class="mt-2 block text-sm leading-5 text-muted">Pelajari domain, range, komposisi, invers, dan fungsi linear.</span>
-        </button>
-        <button data-tab="game" class="group border border-line bg-panel p-5 text-left transition hover:border-coral/60">
-          <span class="flex items-center justify-between"><span class="font-mono text-xs text-muted">02 / CEK PEMAHAMAN</span><i class="fa-solid fa-arrow-up-right-from-square text-xs text-muted group-hover:text-coral" aria-hidden="true"></i></span>
-          <span class="mt-7 block font-display text-xl font-semibold">Kuis Kilat</span><span class="mt-2 block text-sm leading-5 text-muted">Lima soal acak. Tiga nyawa. Waktu berpikir 30 detik per soal.</span>
-        </button>
+
+      <div class="row g-3 mt-4">
+        <div class="col-md-6">
+          <button class="feature-card w-100 text-start" data-tab="functions">
+            <span class="feature-icon sage-icon"><i class="bi bi-journal-bookmark"></i></span>
+            <span class="feature-kicker">01 / PELAJARI KONSEP</span>
+            <strong>Materi Fungsi</strong>
+            <span>Domain, range, komposisi, invers, dan fungsi linear.</span>
+            <i class="bi bi-arrow-up-right feature-arrow"></i>
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button class="feature-card game-feature w-100 text-start" data-tab="game">
+            <span class="feature-icon coral-icon"><i class="bi bi-controller"></i></span>
+            <span class="feature-kicker">02 / COBA KEMAMPUANMU</span>
+            <strong>Quiz</strong>
+            <span>Jawab satu per satu, pelajari pembahasan, lalu buka tantangan berikutnya.</span>
+            <i class="bi bi-arrow-up-right feature-arrow"></i>
+          </button>
+        </div>
       </div>
-      <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line pt-5 text-xs text-muted">
-        <span><i class="fa-regular fa-clock mr-2 text-gold" aria-hidden="true"></i>Belajar dengan ritmemu</span><span><i class="fa-solid fa-calculator mr-2 text-mint" aria-hidden="true"></i>Contoh hitung interaktif</span><span><i class="fa-solid fa-mobile-screen mr-2 text-coral" aria-hidden="true"></i>Nyaman di layar kecil</span>
+
+      <section class="progress-overview mt-4" aria-labelledby="progress-title">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
+          <div>
+            <span class="eyebrow">RUANG BELAJARMU</span>
+            <h2 id="progress-title" class="section-title mb-1">Progres belajar</h2>
+            <p class="text-secondary mb-0">Progres tersimpan di browser pada perangkat ini.</p>
+          </div>
+          <button id="resetProgress" class="btn btn-sm btn-outline-sage"><i
+              class="bi bi-arrow-counterclockwise me-1"></i>Atur ulang progres</button>
+        </div>
+        <div class="row g-3 mt-2">
+          <div class="col-6 col-lg-3">
+            <div class="stat-card"><span>Materi selesai</span><strong id="homeMaterialsStat">0 / 5</strong></div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card"><span>Kuis dikerjakan</span><strong id="homeQuizzesStat">0</strong></div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card"><span>Nilai terbaik</span><strong id="homeBestStat">0</strong></div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card"><span>Level terbuka</span><strong id="homeLevelStat">1 / 3</strong></div>
+          </div>
+        </div>
+        <div class="progress-label-row mt-4"><span>Progres materi</span><span id="homeProgressLabel">0%</span></div>
+        <div class="progress app-progress" role="progressbar" aria-label="Progres materi" aria-valuemin="0"
+          aria-valuemax="100">
+          <div id="homeProgressBar" class="progress-bar"></div>
+        </div>
+      </section>
+
+      <div class="learning-note mt-4">
+        <div><i class="bi bi-clock-history"></i><span>Belajar dengan ritmemu</span></div>
+        <div><i class="bi bi-calculator"></i><span>Contoh hitung interaktif</span></div>
+        <div><i class="bi bi-phone"></i><span>Nyaman di layar kecil</span></div>
       </div>
     </section>
+
     <section id="panel-functions" class="tab-panel" aria-labelledby="function-title">
-      <div class="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6"><div><p class="font-mono text-xs uppercase tracking-[.18em] text-coral">Modul 01 / Relasi &amp; pemetaan</p><h1 id="function-title" class="mt-2 font-display text-3xl font-semibold">Fungsi</h1></div><span class="font-mono text-xs text-muted">KOMPOSISI &amp; INVERS</span></div>
-      <div class="grid gap-4 md:grid-cols-2">
-        <article class="border border-line bg-panel p-5 sm:p-6"><p class="font-mono text-[11px] uppercase tracking-wider text-gold">01 / Komposisi</p><h2 class="mt-2 font-display text-xl font-semibold">Fungsi di dalam fungsi</h2><p class="mt-3 text-sm leading-6 text-muted">Komposisi <span class="font-mono text-paper">(f ∘ g)(x) = f(g(x))</span> berarti masukkan hasil fungsi <span class="font-mono text-paper">g</span> ke dalam fungsi <span class="font-mono text-paper">f</span>. Kerjakan fungsi paling dalam terlebih dahulu: cari <span class="font-mono text-paper">g(x)</span>, kemudian gunakan hasil itu sebagai masukan <span class="font-mono text-paper">f</span>. Nilai keluaran g harus termasuk dalam domain f agar komposisi terdefinisi.</p><div class="mt-5 border-l-2 border-gold pl-4"><p class="font-mono text-sm text-paper">f(x) = 2x + 1, &nbsp;g(x) = x²</p><p class="mt-2 font-mono text-sm text-gold">(f ∘ g)(x) = f(x²) = 2x² + 1</p><p class="mt-1 text-xs leading-5 text-muted">Untuk x = 2: g(2) = 4, lalu f(4) = 9. Sebaliknya, (g ∘ f)(2) = g(5) = 25. Jadi, urutan komposisi umumnya tidak dapat ditukar.</p></div><p class="mt-4 text-xs leading-5 text-muted">Ingat: <span class="font-mono text-paper">f ∘ g</span> dibaca “f komposisi g”, tetapi yang dikerjakan lebih dahulu adalah g.</p></article>
-        <article class="border border-line bg-panel p-5 sm:p-6"><p class="font-mono text-[11px] uppercase tracking-wider text-coral">02 / Fungsi invers</p><h2 class="mt-2 font-display text-xl font-semibold">Balikkan pemetaannya</h2><p class="mt-3 text-sm leading-6 text-muted">Fungsi invers membalik proses fungsi asal: jika <span class="font-mono text-paper">f</span> memetakan masukan menjadi keluaran, maka <span class="font-mono text-paper">f⁻¹</span> memetakan keluaran itu kembali ke masukan. Invers bukan berarti <span class="font-mono text-paper">1/f(x)</span>. Agar inversnya menjadi fungsi, setiap keluaran fungsi asal harus berasal dari tepat satu masukan (fungsi satu-ke-satu).</p><div class="mt-5 border-l-2 border-coral pl-4"><p class="font-mono text-sm text-paper">f(x) = ax + b, &nbsp;a ≠ 0</p><p class="mt-2 font-mono text-sm text-coral">f⁻¹(x) = (x − b) / a</p><p class="mt-1 text-xs leading-5 text-muted">Langkah: tulis y = ax + b → tukar x dan y menjadi x = ay + b → isolasi y, sehingga y = (x − b)/a.</p><p class="mt-2 text-xs leading-5 text-muted">Contoh f(x) = 2x + 4: y = 2x + 4 → tukar x dan y menjadi x = 2y + 4 → y = (x − 4)/2. Jadi, f⁻¹(x) = (x − 4)/2. Pemeriksaan: f⁻¹(f(x)) = ((2x + 4) − 4)/2 = x.</p></div></article>
+      <div class="section-heading">
+        <div><span class="eyebrow coral-text">MODUL 01 / RELASI &amp; PEMETAAN</span>
+          <h1 id="function-title" class="section-title">Fungsi</h1>
+        </div>
+        <span class="topic-chip">KOMPOSISI &amp; INVERS</span>
       </div>
-      <article class="mt-4 border border-line bg-panel p-5 sm:p-6">
-        <p class="font-mono text-[11px] uppercase tracking-wider text-mint">Dasar sebelum menghitung</p><h2 class="mt-2 font-display text-lg font-semibold">Relasi, fungsi, domain, dan range</h2>
-        <p class="mt-3 text-sm leading-6 text-muted">Relasi memasangkan anggota suatu himpunan dengan anggota himpunan lain. Relasi disebut fungsi jika setiap anggota domain (daerah asal) dipasangkan dengan tepat satu anggota kodomain (daerah kawan). Anggota kodomain yang benar-benar mendapat pasangan disebut range (daerah hasil).</p>
-        <div class="mt-4 grid gap-3 sm:grid-cols-3">
-          <div class="border border-line p-4"><p class="font-mono text-sm text-mint">Domain</p><p class="mt-2 text-xs leading-5 text-muted">Nilai masukan yang diperbolehkan, biasanya ditulis x.</p></div>
-          <div class="border border-line p-4"><p class="font-mono text-sm text-gold">Kodomain</p><p class="mt-2 text-xs leading-5 text-muted">Himpunan tujuan yang ditetapkan untuk keluaran fungsi.</p></div>
-          <div class="border border-line p-4"><p class="font-mono text-sm text-coral">Range</p><p class="mt-2 text-xs leading-5 text-muted">Kumpulan keluaran yang benar-benar dihasilkan dari domain.</p></div>
+      <div class="learning-guide reveal-item">
+        <i class="bi bi-signpost-split" aria-hidden="true"></i>
+        <p><strong>Cara belajar:</strong> tiap unit menjelaskan definisi, asal-usul yang diketahui, contoh langkah demi
+          langkah, dan jebakan umum. Bagian <em>“Coba sendiri”</em> bisa dibuka setelah kamu mencoba menjawab. Latihan
+          hitung dari fungsi, komposisi, invers, dan fungsi linear muncul lagi di kuis.</p>
+      </div>
+
+      <article class="history-card reveal-item">
+        <div class="history-heading">
+          <span class="history-icon"><i class="bi bi-hourglass-split"></i></span>
+          <div><span class="lesson-number">SEJARAH SINGKAT</span>
+            <h2>Fungsi tidak ditemukan oleh satu orang saja</h2>
+          </div>
         </div>
-        <p class="mt-4 text-sm leading-6 text-muted">Contoh: pada <span class="font-mono text-paper">f(x) = 2x + 3</span>, jika domain yang dipakai adalah {0, 1, 2}, maka keluarannya berturut-turut {3, 5, 7}. Setiap x memiliki satu keluaran, sehingga aturan ini memenuhi definisi fungsi. Satu x yang memiliki dua keluaran berbeda bukan fungsi.</p>
+        <p>Gagasan tentang hubungan antara dua besaran tumbuh perlahan dalam sejarah matematika. Tabel bilangan bangsa
+          Babilonia kuno dapat dipahami sebagai contoh hubungan input-output, meskipun mereka belum memakai pengertian
+          fungsi modern.</p>
+        <div class="history-timeline">
+          <div><span>1673</span><strong>Gottfried Wilhelm Leibniz</strong>
+            <p>Menggunakan kata “fungsi” saat membahas garis-garis pada geometri.</p>
+          </div>
+          <div><span>1718</span><strong>Johann Bernoulli</strong>
+            <p>Menerbitkan rumusan awal yang terkenal: fungsi sebagai besaran yang dibentuk dari variabel dan konstanta.
+            </p>
+          </div>
+          <div><span>1748–1755</span><strong>Leonhard Euler</strong>
+            <p>Menjadikan fungsi pusat analisis: mula-mula sebagai ekspresi analitik, lalu juga sebagai besaran yang
+              bergantung pada besaran lain.</p>
+          </div>
+        </div>
+        <details class="history-deep-dive mt-3">
+          <summary>Lihat perkembangan konsep fungsi dari masa ke masa</summary>
+          <div class="deep-dive-content">
+            <ol class="history-details-list">
+              <li><strong>Sebelum istilah fungsi:</strong> juru tulis Babilonia membuat tabel kuadrat dan kebalikan.
+                Ptolemaios (abad ke-2 M) menyusun tabel tali busur lingkaran, sedangkan Āryabhaṭa (499 M) menyajikan
+                tabel sinus. Ini adalah hubungan nilai yang dapat dibaca sebagai input-output, tetapi belum merupakan
+                definisi fungsi modern.</li>
+              <li><strong>Abad ke-14:</strong> Nicole Oresme menggambarkan perubahan besaran, seperti kecepatan, secara
+                visual dengan garis. Ia pelopor penting grafik perubahan, bukan pencipta tunggal konsep fungsi.</li>
+              <li><strong>Abad ke-17:</strong> Fermat dan Descartes menghubungkan aljabar dengan geometri; karya
+                Descartes terbit pada 1637. Leibniz memakai istilah <em>function</em> dalam manuskrip 1673 untuk besaran
+                geometris pada kurva, bukan pemetaan antarihimpunan seperti definisi sekolah sekarang.</li>
+              <li><strong>1718 dan 1748–1755:</strong> Bernoulli merumuskan fungsi sebagai besaran yang dibentuk dari
+                variabel dan konstanta. Euler memperluas pemakaiannya dalam analisis dan membahas ketergantungan
+                antarbesaran.</li>
+              <li><strong>Abad ke-19:</strong> Fourier, Dirichlet (1829 dan 1837), serta Lobachevsky membantu
+                menunjukkan bahwa fungsi tidak harus selalu satu rumus aljabar sederhana; suatu kondisi atau aturan lain
+                juga dapat menentukan output.</li>
+              <li><strong>1888 hingga abad ke-20:</strong> Dedekind mengembangkan gagasan pemetaan unsur suatu sistem ke
+                unsur lain. Tradisi teori himpunan, termasuk karya Bourbaki, membantu menata pengertian fungsi modern
+                secara formal.</li>
+            </ol>
+            <p class="small-note mb-0">Tanggal dan peran di atas merujuk pada tahap tertentu dalam perkembangan gagasan.
+              Tidak satu pun tokoh tersebut menciptakan seluruh pengertian fungsi modern sendirian.</p>
+          </div>
+        </details>
+        <p class="history-source">Jadi, fungsi matematika modern berkembang melalui banyak pemikiran, bukan “ditemukan”
+          sekaligus. <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Functions/" target="_blank"
+            rel="noopener noreferrer">Sumber sejarah konsep fungsi <i class="bi bi-box-arrow-up-right"></i></a></p>
       </article>
-      <article class="mt-4 border border-line bg-panel p-5 sm:p-7">
-        <div class="flex flex-wrap items-start justify-between gap-3"><div><p class="font-mono text-[11px] uppercase tracking-wider text-mint">Simulator langsung</p><h2 class="mt-2 font-display text-xl font-semibold">Evaluasi fungsi linear</h2><p class="mt-1 text-sm text-muted">Atur a, b, dan nilai x. Hasilnya diperbarui otomatis.</p></div><span class="border border-line px-3 py-2 font-mono text-sm text-paper">f(x) = ax + b</span></div>
-        <div class="mt-6 grid gap-4 sm:grid-cols-3">
-          <label class="block text-xs font-semibold text-muted">Koefisien a<input id="linearA" type="number" step="any" value="2" class="mt-2 w-full border border-line bg-ink px-3 py-3 font-mono text-paper" aria-label="Koefisien a"></label>
-          <label class="block text-xs font-semibold text-muted">Konstanta b<input id="linearB" type="number" step="any" value="3" class="mt-2 w-full border border-line bg-ink px-3 py-3 font-mono text-paper" aria-label="Konstanta b"></label>
-          <label class="block text-xs font-semibold text-muted">Nilai x<input id="linearX" type="number" step="any" value="4" class="mt-2 w-full border border-line bg-ink px-3 py-3 font-mono text-paper" aria-label="Nilai x"></label>
+
+      <div class="row g-3">
+        <div class="col-12">
+          <article class="lesson-card reveal-item">
+            <span class="lesson-number">UNIT 01 / RELASI DAN FUNGSI</span>
+            <h2>Apa itu fungsi, dan bagaimana cara mengenalinya?</h2>
+            <div class="row g-4 mt-1">
+              <div class="col-lg-7">
+                <h3 class="topic-subtitle">Definisi dan notasi</h3>
+                <p>Fungsi adalah aturan yang memasangkan <strong>setiap</strong> anggota domain (input) dengan
+                  <strong>tepat satu</strong> anggota kodomain (output). Ditulis <strong>f: A → B</strong>: f adalah
+                  nama aturan, A adalah domain, dan B adalah kodomain. Jika inputnya x, outputnya ditulis f(x), dibaca
+                  “f dari x”.
+                </p>
+                <p>Fungsi boleh memberi output sama untuk input berbeda. Yang dilarang adalah satu input memiliki dua
+                  output berbeda. Pikirkan mesin: masukkan x, jalankan aturan yang tetap, lalu baca satu hasil f(x).</p>
+                <div class="example-box"><strong>Contoh fungsi:</strong> A = {1, 2}, aturan f(x) = x + 3 memberi 1 → 4
+                  dan 2 → 5.<br><strong>Bukan fungsi:</strong> relasi memasangkan 1 → 4 sekaligus 1 → 7.</div>
+                <h3 class="topic-subtitle mt-4">Cara memeriksa</h3>
+                <ol class="lesson-list">
+                  <li>Catat semua anggota domain/input.</li>
+                  <li>Pastikan setiap input mendapat pasangan.</li>
+                  <li>Pastikan satu input tidak punya lebih dari satu output.</li>
+                </ol>
+              </div>
+              <div class="col-lg-5">
+                <div class="provenance-box">
+                  <h3 class="topic-subtitle">Asal-usul dan tokoh</h3>
+                  <p>Konsep fungsi berkembang bertahap, jadi tidak tepat menyebut satu “penemu fungsi”. Tabel hitung
+                    Babilonia kuno dapat dilihat sekarang sebagai contoh hubungan input-output, tetapi belum memakai
+                    definisi fungsi modern. Leibniz memakai kata “fungsi” pada 1673 saat membahas garis; Johann
+                    Bernoulli membahasnya sebagai istilah matematika pada 1694. Euler membuat gagasan fungsi penting
+                    dalam analisis pada 1748 dan memberi definisi lebih umum pada 1755.</p>
+                  <p class="small-note mb-0">Tokoh-tokoh ini berperan pada tahap berbeda; mereka bukan sendirian
+                    menciptakan seluruh konsep modern.</p>
+                </div>
+                <details class="think-box mt-3">
+                  <summary>Coba sendiri: apakah 1 → a, 2 → a termasuk fungsi?</summary>
+                  <p class="mb-0">Ya. Kedua input masing-masing memiliki tepat satu output. Outputnya kebetulan sama,
+                    dan itu diperbolehkan.</p>
+                </details>
+              </div>
+            </div>
+            <details class="lesson-deep-dive mt-4">
+              <summary>Fungsi bukan cuma rumus: tabel, diagram, grafik, dan aturan</summary>
+              <div class="deep-dive-content">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <h3 class="topic-subtitle">Lima cara menyatakan fungsi</h3>
+                    <ol class="lesson-list">
+                      <li><strong>Rumus:</strong> f(x) = 2x + 3.</li>
+                      <li><strong>Tabel:</strong> daftar input x dan output f(x).</li>
+                      <li><strong>Diagram panah:</strong> garis dari setiap input ke tepat satu output.</li>
+                      <li><strong>Grafik:</strong> titik-titik (x, f(x)) pada bidang koordinat.</li>
+                      <li><strong>Aturan verbal:</strong> misalnya setiap orang dipasangkan dengan tanggal lahirnya.
+                      </li>
+                    </ol>
+                  </div>
+                  <div class="col-md-6">
+                    <h3 class="topic-subtitle">Uji garis vertikal</h3>
+                    <p class="mb-2">Pada grafik hubungan y terhadap x, setiap garis vertikal hanya boleh memotong grafik
+                      paling banyak sekali. Jika satu garis x tertentu memotong dua titik, satu input x memiliki dua
+                      output y, jadi hubungan itu bukan fungsi y terhadap x.</p>
+                    <div class="example-box">y² = x memberi y = 2 dan y = −2 saat x = 4, jadi bukan satu fungsi y(x).
+                      Jika dipilih satu cabang, misalnya y = √x dengan x ≥ 0, barulah setiap x memiliki satu output.
+                    </div>
+                  </div>
+                </div>
+                <p class="small-note mt-3 mb-0">Secara formal, grafik fungsi f: A → B adalah himpunan pasangan {(x,
+                  f(x)) | x ∈ A} yang menjadi bagian dari A × B. Rumus hanyalah salah satu cara menuliskan aturan
+                  pemetaannya.</p>
+              </div>
+            </details>
+            <button data-complete-material="1" class="btn btn-outline-sage btn-sm material-complete mt-3"><i
+                class="bi bi-check2-circle me-1"></i>Tandai selesai</button>
+          </article>
         </div>
-        <div class="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5"><div><p id="linearSubstitution" class="font-mono text-sm text-muted">f(4) = 2 × 4 + 3</p><p class="mt-1 text-xs text-muted">Substitusi nilai x ke dalam rumus.</p></div><div class="text-right"><span class="font-mono text-xs uppercase tracking-wider text-muted">Hasil</span><output id="linearResult" class="mt-1 block font-display text-3xl font-semibold text-mint" aria-live="polite">11</output></div></div>
-        <div class="mt-5 grid gap-4 border-t border-line pt-5 sm:grid-cols-2">
-          <div><p class="font-mono text-xs uppercase tracking-wider text-mint">Contoh langkah demi langkah</p><p class="mt-2 text-sm leading-6 text-muted">Untuk <span class="font-mono text-paper">f(x) = 2x + 3</span>, jika <span class="font-mono text-paper">x = 2</span>, maka <span class="font-mono text-paper">f(2) = 2(2) + 3 = 4 + 3 = 7</span>. Pada simulator, dengan x = 4, hasilnya <span class="font-mono text-mint">f(4) = 11</span>.</p><p class="mt-2 text-sm leading-6 text-muted">Contoh lain: <span class="font-mono text-paper">f(x) = 3x − 2</span>, sehingga <span class="font-mono text-paper">f(4) = 3(4) − 2 = 12 − 2 = 10</span>.</p></div>
-          <div><p class="font-mono text-xs uppercase tracking-wider text-gold">Makna a dan b</p><p class="mt-2 text-sm leading-6 text-muted">Pada <span class="font-mono text-paper">f(x) = ax + b</span>, a adalah gradien: perubahan keluaran ketika x naik 1 satuan. Jika a positif grafik naik, jika a negatif grafik turun, dan jika a = 0 hasilnya konstan. b adalah nilai fungsi saat x = 0 (titik potong sumbu-y).</p></div>
+        <div class="col-12">
+          <article class="lesson-card reveal-item">
+            <span class="lesson-number purple-text">UNIT 02 / DOMAIN, KODOMAIN, DAN RANGE</span>
+            <h2>Input mana yang boleh, dan output mana yang muncul?</h2>
+            <div class="row g-4 mt-1">
+              <div class="col-lg-7">
+                <h3 class="topic-subtitle">Tiga istilah yang jangan tertukar</h3>
+                <div class="definition-grid">
+                  <div><strong>Domain</strong><span>Semua input yang disediakan atau diperbolehkan.</span></div>
+                  <div><strong>Kodomain</strong><span>Himpunan tujuan tempat output diharapkan berada.</span></div>
+                  <div><strong>Range</strong><span>Output yang benar-benar dihasilkan dari domain.</span></div>
+                </div>
+                <div class="example-box purple-example mt-3">f(x) = 2x, domain {1, 2, 3}, kodomain {2, 4, 6, 8}. Hitung:
+                  f(1) = 2, f(2) = 4, f(3) = 6. Maka range = {2, 4, 6}. Angka 8 ada di kodomain, tetapi tidak di range.
+                </div>
+                <h3 class="topic-subtitle mt-4">Domain jika rumusnya diberikan</h3>
+                <ul class="lesson-list">
+                  <li>Penyebut tidak boleh nol: 1/(x − 2) mensyaratkan x ≠ 2.</li>
+                  <li>Isi akar berpangkat genap harus ≥ 0: √(x − 1) mensyaratkan x ≥ 1.</li>
+                  <li>Isi logaritma harus &gt; 0: log(x − 2) mensyaratkan x &gt; 2.</li>
+                  <li>Untuk f(x) = x² dengan domain semua bilangan real, nilai terkecil output adalah 0, jadi range-nya
+                    y ≥ 0.</li>
+                </ul>
+                <details class="lesson-deep-dive mt-3">
+                  <summary>Jenis fungsi umum dan domainnya</summary>
+                  <div class="deep-dive-content">
+                    <ul class="lesson-list">
+                      <li><strong>Konstan:</strong> f(x) = c; output selalu c.</li>
+                      <li><strong>Identitas:</strong> f(x) = x; setiap input menjadi outputnya sendiri.</li>
+                      <li><strong>Linear (istilah sekolah):</strong> f(x) = ax + b; grafiknya garis lurus.</li>
+                      <li><strong>Kuadrat:</strong> f(x) = ax² + bx + c; grafik umumnya parabola.</li>
+                      <li><strong>Rasional:</strong> perbandingan polinomial, misalnya 1/(x − 2); penyebut tidak boleh
+                        nol.</li>
+                      <li><strong>Akar, eksponensial, logaritma, trigonometri, dan fungsi potongan:</strong>
+                        masing-masing memiliki aturan dan batas domain yang perlu diperiksa.</li>
+                    </ul>
+                    <p class="small-note mb-0">Daftar ini adalah contoh jenis yang umum dipelajari, bukan daftar lengkap
+                      semua fungsi dalam matematika.</p>
+                  </div>
+                </details>
+              </div>
+              <div class="col-lg-5">
+                <div class="provenance-box">
+                  <h3 class="topic-subtitle">Asal-usul istilah</h3>
+                  <p>Domain, kodomain, dan range adalah istilah untuk menjelaskan bagian-bagian pemetaan. Tidak ada satu
+                    penemu tunggal yang secara aman dapat diklaim untuk ketiga istilah ini dalam pelajaran sekolah;
+                    penggunaannya berkembang bersama bahasa modern tentang fungsi dan himpunan.</p>
+                  <p class="small-note mb-0">Range bergantung pada aturan dan domain yang dipilih. Mengubah domain dapat
+                    mengubah range, walaupun rumusnya tetap.</p>
+                </div>
+                <details class="think-box mt-3">
+                  <summary>Coba sendiri: domain 1/(x − 2) boleh memuat x = 2?</summary>
+                  <p class="mb-0">Tidak. Jika x = 2, penyebut menjadi nol sehingga pembagian tidak terdefinisi. Domain
+                    realnya adalah semua bilangan real kecuali 2.</p>
+                </details>
+              </div>
+            </div>
+            <button data-complete-material="2" class="btn btn-outline-sage btn-sm material-complete mt-3"><i
+                class="bi bi-check2-circle me-1"></i>Tandai selesai</button>
+          </article>
         </div>
-        <p class="mt-4 border-l-2 border-coral pl-4 text-xs leading-5 text-muted">Hati-hati dengan tanda negatif dan urutan operasi: hitung perkalian sebelum penjumlahan. Contoh, jika f(x) = −2x + 1, maka f(−3) = (−2)(−3) + 1 = 7.</p>
+        <div class="col-12">
+          <article class="lesson-card reveal-item">
+            <span class="lesson-number gold-text">UNIT 03 / KOMPOSISI FUNGSI</span>
+            <h2>Menyambungkan dua aturan: kerjakan fungsi bagian dalam dahulu</h2>
+            <div class="row g-4 mt-1">
+              <div class="col-lg-7">
+                <h3 class="topic-subtitle">Makna dan urutan</h3>
+                <p>Komposisi membuat output suatu fungsi menjadi input fungsi lain. <strong>(f ∘ g)(x) =
+                    f(g(x))</strong> artinya mulai dari x, jalankan g, lalu masukkan hasilnya ke f. Simbol dibaca “f
+                  komposisi g”, tetapi g dikerjakan lebih dahulu karena berada di bagian dalam.</p>
+                <div class="example-box gold-example"><strong>Diketahui</strong> f(x) = 2x + 1 dan g(x) =
+                  x².<br><strong>Hitung (f ∘ g)(2):</strong><br>1. g(2) = 2² = 4.<br>2. f(4) = 2(4) + 1 = 9.<br>Jadi (f
+                  ∘ g)(2) = 9.</div>
+                <div class="example-box mt-3"><strong>Urutan dibalik:</strong> (g ∘ f)(2) = g(f(2)) = g(5) = 5² = 25.
+                  Maka f ∘ g umumnya tidak sama dengan g ∘ f.</div>
+                <details class="lesson-deep-dive mt-3">
+                  <summary>Operasi fungsi lain dan fungsi dengan beberapa input</summary>
+                  <div class="deep-dive-content">
+                    <p>Jika f(x) = 2x + 1 dan g(x) = x − 3, operasi dilakukan pada output untuk input yang sama:</p>
+                    <ul class="lesson-list">
+                      <li>(f + g)(x) = (2x + 1) + (x − 3) = 3x − 2.</li>
+                      <li>(f − g)(x) = (2x + 1) − (x − 3) = x + 4.</li>
+                      <li>(fg)(x) = (2x + 1)(x − 3).</li>
+                      <li>(f/g)(x) = (2x + 1)/(x − 3), dengan syarat x ≠ 3 karena pembagi tidak boleh nol.</li>
+                    </ul>
+                    <h3 class="topic-subtitle mt-3">Fungsi tidak harus satu input</h3>
+                    <p class="mb-0">Luas lingkaran bergantung pada jari-jari: A(r) = πr². Volume tabung bergantung pada
+                      dua input, jari-jari dan tinggi: V(r,h) = πr²h. Setiap pasangan input yang diizinkan tetap harus
+                      menghasilkan tepat satu output.</p>
+                  </div>
+                </details>
+              </div>
+              <div class="col-lg-5">
+                <div class="provenance-box">
+                  <h3 class="topic-subtitle">Asal-usul dan syarat</h3>
+                  <p>Menyusun aturan secara berurutan adalah ide yang muncul dari pemakaian fungsi; tidak ada satu tokoh
+                    yang secara umum diakui sebagai penemu tunggal operasi komposisi fungsi. Notasi <strong>f ∘
+                      g</strong> adalah cara ringkas untuk menulis urutan itu.</p>
+                  <p class="small-note mb-0">Komposisi terdefinisi hanya jika output g(x) bisa menjadi input f—dengan
+                    kata lain, hasil g berada dalam domain f.</p>
+                </div>
+                <details class="think-box mt-3">
+                  <summary>Coba sendiri: jika f(x) = x + 4 dan g(x) = 3x, hitung (g ∘ f)(2).</summary>
+                  <p class="mb-0">Kerjakan f dahulu: f(2) = 6. Lalu g(6) = 3 × 6 = 18. Jadi (g ∘ f)(2) = 18.</p>
+                </details>
+              </div>
+            </div>
+            <button data-complete-material="3" class="btn btn-outline-sage btn-sm material-complete mt-3"><i
+                class="bi bi-check2-circle me-1"></i>Tandai selesai</button>
+          </article>
+        </div>
+        <div class="col-12">
+          <article class="lesson-card reveal-item">
+            <span class="lesson-number coral-text">UNIT 04 / FUNGSI INVERS</span>
+            <h2>Membalik aturan dengan mengembalikan output menjadi input</h2>
+            <div class="row g-4 mt-1">
+              <div class="col-lg-7">
+                <h3 class="topic-subtitle">Definisi, langkah, dan pemeriksaan</h3>
+                <p>Fungsi invers <strong>f⁻¹</strong> membalik pemetaan: jika f mengubah x menjadi y, f⁻¹ mengubah y
+                  kembali menjadi x. Notasi f⁻¹ <strong>bukan</strong> berarti 1/f(x). Agar invers juga merupakan
+                  fungsi, fungsi asal harus satu-ke-satu pada domain yang dipakai—setiap output berasal dari satu input.
+                </p>
+                <div class="example-box coral-example"><strong>Contoh f(x) = 2x + 4:</strong><br>1. Tulis y = 2x +
+                  4.<br>2. Tukar x dan y: x = 2y + 4.<br>3. Selesaikan untuk y: y = (x − 4) / 2.<br>Jadi f⁻¹(x) = (x −
+                  4) / 2.</div>
+                <p class="small-note mt-3 mb-0"><strong>Cek:</strong> f⁻¹(f(x)) = ((2x + 4) − 4)/2 = x. Domain invers
+                  berasal dari range fungsi asal, dan range invers berasal dari domain fungsi asal.</p>
+                <details class="lesson-deep-dive mt-3">
+                  <summary>Injektif, surjektif, dan bijektif: kapan invers tersedia?</summary>
+                  <div class="deep-dive-content">
+                    <ul class="lesson-list">
+                      <li><strong>Injektif:</strong> input berbeda tidak menghasilkan output yang sama. Ini syarat agar
+                        invers menjadi fungsi pada range asal.</li>
+                      <li><strong>Surjektif:</strong> setiap anggota kodomain benar-benar menjadi output. Sifat ini
+                        bergantung pada kodomain yang dipilih.</li>
+                      <li><strong>Bijektif:</strong> sekaligus injektif dan surjektif. Fungsi bijektif memiliki pasangan
+                        satu-satu antara seluruh domain dan kodomain.</li>
+                    </ul>
+                    <div class="example-box coral-example mt-3">f: ℝ → ℝ, f(x) = 2x + 1 bersifat bijektif. Untuk setiap
+                      y ada tepat satu x = (y − 1)/2, sehingga f⁻¹(y) = (y − 1)/2. Sebaliknya, f(x) = x² pada ℝ tidak
+                      injektif karena f(2) = f(−2) = 4.</div>
+                  </div>
+                </details>
+              </div>
+              <div class="col-lg-5">
+                <div class="provenance-box">
+                  <h3 class="topic-subtitle">Asal-usul dan kapan invers ada</h3>
+                  <p>Gagasan membalik pemetaan berkembang bersama teori fungsi dan relasi; tidak ada satu orang yang
+                    dapat disebut penemu tunggal fungsi invers. Syarat satu-ke-satu bukan formalitas: f(x) = x² pada
+                    domain semua real tidak punya invers berupa fungsi, sebab 4 berasal dari x = 2 maupun x = −2.</p>
+                  <p class="small-note mb-0">Jika domain dibatasi x ≥ 0, x² menjadi satu-ke-satu dan inversnya √x.
+                    Secara grafik, fungsi satu-ke-satu lolos uji garis horizontal.</p>
+                </div>
+                <details class="think-box mt-3">
+                  <summary>Coba sendiri: apa invers f(x) = 3x − 6?</summary>
+                  <p class="mb-0">Tukar x dan y: x = 3y − 6. Maka 3y = x + 6, sehingga f⁻¹(x) = (x + 6)/3.</p>
+                </details>
+              </div>
+            </div>
+            <button data-complete-material="4" class="btn btn-outline-sage btn-sm material-complete mt-3"><i
+                class="bi bi-check2-circle me-1"></i>Tandai selesai</button>
+          </article>
+        </div>
+      </div>
+
+      <article class="lesson-card linear-concept-card mt-3 reveal-item">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-7">
+            <span class="lesson-number">05 / MENGENAL FUNGSI LINEAR</span>
+            <h2>Apa itu fungsi linear?</h2>
+            <p>Di pelajaran sekolah, fungsi linear biasanya ditulis <strong>f(x) = ax + b</strong> (atau y = mx + c) dan
+              grafiknya berupa garis lurus. Setiap x naik satu satuan, output berubah sebesar a. Jika a positif garis
+              naik, jika negatif garis turun, dan jika a = 0 garis mendatar.</p>
+            <div class="linear-parts">
+              <div><strong>a</strong><span>Gradien/kemiringan garis. Jika a &gt; 0 garis naik; jika a &lt; 0 garis
+                  turun; jika a = 0 garis mendatar.</span></div>
+              <div><strong>b</strong><span>Titik potong sumbu-y, yaitu nilai fungsi ketika x = 0.</span></div>
+            </div>
+            <div class="example-box mt-3"><strong>Menentukan rumus dari dua titik:</strong> f(0) = 3 dan f(2) = 7.<br>a
+              = (7 − 3)/(2 − 0) = 2, lalu b = f(0) = 3.<br>Jadi f(x) = 2x + 3. Cek: f(2) = 2(2) + 3 = 7.</div>
+            <details class="lesson-deep-dive mt-3">
+              <summary>Rumus gradien dan cara membentuk fungsi dari dua titik</summary>
+              <div class="deep-dive-content">
+                <p>Jika garis melalui (x₁, y₁) dan (x₂, y₂), dengan x₁ ≠ x₂, maka:</p>
+                <div class="example-box">a = (y₂ − y₁)/(x₂ − x₁)<br>b = y₁ − ax₁<br>f(x) = ax + b</div>
+                <p class="mt-3 mb-0">Contoh titik (2, 7) dan (5, 16): a = (16 − 7)/(5 − 2) = 3, lalu b = 7 − 3(2) = 1.
+                  Jadi f(x) = 3x + 1. Bentuk ax melalui titik asal; bentuk ax + b dengan b ≠ 0 memotong sumbu-y di b.
+                </p>
+              </div>
+            </details>
+            <div class="provenance-box mt-3">
+              <h3 class="topic-subtitle">Asal-usul dan catatan istilah</h3>
+              <p>Hubungan linear dan persamaan garis berkembang sepanjang sejarah aljabar dan geometri; tidak ada satu
+                penemu tunggal yang dapat diklaim untuk seluruh konsep fungsi linear. Rumus dan grafik yang dipakai di
+                sekolah adalah cara modern untuk menyatakan hubungan dengan perubahan tetap.</p>
+              <p class="small-note mb-0"><strong>Catatan transparan:</strong> di sekolah, ax + b sering disebut fungsi
+                linear. Dalam aljabar linear tingkat lanjut, “pemetaan linear” biasanya mensyaratkan f(x) = ax (b = 0);
+                bentuk ax + b dengan b ≠ 0 secara lebih khusus disebut afin. Ikuti istilah yang digunakan di kelasmu.
+              </p>
+            </div>
+            <details class="think-box mt-3">
+              <summary>Coba sendiri: jika f(x) = 2x + 3, berapa perubahan output ketika x naik dari 4 ke 5?</summary>
+              <p class="mb-0">Output naik 2, sama dengan gradien a. f(4) = 11 dan f(5) = 13.</p>
+            </details>
+            <button data-complete-material="5" class="btn btn-outline-sage btn-sm material-complete mt-3"><i
+                class="bi bi-check2-circle me-1"></i>Tandai selesai</button>
+          </div>
+          <div class="col-lg-5">
+            <figure class="linear-figure mb-0">
+              <svg viewBox="0 0 360 230" role="img" aria-labelledby="linearGraphTitle linearGraphDesc">
+                <title id="linearGraphTitle">Grafik garis fungsi f(x) sama dengan 2x tambah 3</title>
+                <desc id="linearGraphDesc">Garis naik dari kiri bawah ke kanan atas dan memotong sumbu y di angka 3.
+                </desc>
+                <defs>
+                  <pattern id="graphGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#e4e9e1" stroke-width="1" />
+                  </pattern>
+                </defs>
+                <rect x="36" y="12" width="300" height="190" rx="12" fill="url(#graphGrid)" />
+                <path d="M36 164 H336 M96 202 V12" fill="none" stroke="#a0a79f" stroke-width="1.5" />
+                <path d="M48 136 L318 28" fill="none" stroke="#718d78" stroke-width="4" stroke-linecap="round" />
+                <circle cx="96" cy="117" r="5" fill="#d99a8b" />
+                <circle cx="186" cy="81" r="5" fill="#718d78" />
+                <circle cx="276" cy="45" r="5" fill="#d9c5a3" />
+                <text x="322" y="183" fill="#78837b" font-size="12" font-family="DM Mono, monospace">x</text>
+                <text x="79" y="23" fill="#78837b" font-size="12" font-family="DM Mono, monospace">y</text>
+                <text x="106" y="112" fill="#b97667" font-size="12" font-family="DM Mono, monospace">b = 3</text>
+                <text x="226" y="72" fill="#34463d" font-size="13" font-family="DM Mono, monospace">f(x) = 2x + 3</text>
+              </svg>
+              <figcaption>Garis memotong sumbu-y di b = 3 dan naik dengan gradien a = 2.</figcaption>
+            </figure>
+          </div>
+        </div>
       </article>
-      <article class="mt-4 border border-line bg-panel p-5 sm:p-6">
-        <p class="font-mono text-[11px] uppercase tracking-wider text-gold">Referensi belajar tambahan</p>
-        <h2 class="mt-2 font-display text-lg font-semibold">Lanjutkan belajar</h2>
-        <ol class="mt-3 list-inside list-decimal space-y-2 text-sm leading-6 text-muted">
-          <li>Materi relasi, fungsi, domain, kodomain, dan range.</li>
-          <li>Materi komposisi dan invers fungsi.</li>
-          <li>Latihan evaluasi fungsi linear.</li>
-        </ol>
-        <p class="mt-4 text-xs leading-5 text-muted">Untuk latihan interaktif, buka menu <span class="font-semibold text-paper">Mini Game</span>: lima soal fungsi dipilih secara acak dari bank soal.</p>
+
+      <article class="lesson-card simulator-card mt-3 reveal-item">
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-3">
+          <div><span class="lesson-number">SIMULATOR FUNGSI LINEAR</span>
+            <h2>Ubah nilai, lihat hasilnya</h2>
+            <p class="mb-0">Atur a, b, dan nilai x untuk menghitung f(x) = ax + b.</p>
+          </div>
+          <span class="formula-pill">f(x) = ax + b</span>
+        </div>
+        <div class="row g-3 mt-2">
+          <div class="col-md-4"><label class="form-label" for="linearA">Koefisien a</label><input id="linearA"
+              type="number" step="any" value="2" class="form-control math-input"></div>
+          <div class="col-md-4"><label class="form-label" for="linearB">Konstanta b</label><input id="linearB"
+              type="number" step="any" value="3" class="form-control math-input"></div>
+          <div class="col-md-4"><label class="form-label" for="linearX">Nilai x</label><input id="linearX" type="number"
+              step="any" value="4" class="form-control math-input"></div>
+        </div>
+        <button id="resetSimulator" type="button" class="btn btn-outline-sage btn-sm mt-3"><i
+            class="bi bi-arrow-counterclockwise me-1"></i>Reset nilai</button>
+        <div class="calculation-result mt-4">
+          <div><span class="lesson-number">LANGKAH SUBSTITUSI</span>
+            <p id="linearSubstitution" class="formula-line mb-0" aria-live="polite">f(4) = 2 × 4 + 3</p>
+          </div>
+          <div class="result-value"><span>HASIL</span><output id="linearResult" aria-live="polite">11</output></div>
+        </div>
+        <div class="row g-4 mt-2">
+          <div class="col-md-6">
+            <h3 class="mini-heading">Contoh langkah demi langkah</h3>
+            <p>Untuk f(x) = 2x + 3 dan x = 2, f(2) = 2(2) + 3 = 4 + 3 = 7.</p>
+          </div>
+          <div class="col-md-6">
+            <h3 class="mini-heading gold-text">Coba prediksi dahulu</h3>
+            <p>Sebelum mengubah x, tebak: jika x naik 1 dan a = 2, berapa perubahan hasilnya? Periksa dengan simulator
+              di atas.</p>
+          </div>
+        </div>
       </article>
     </section>
 
     <section id="panel-game" class="tab-panel" aria-labelledby="game-title">
-      <div class="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6"><div><p class="font-mono text-xs uppercase tracking-[.18em] text-coral">Modul 02 / Cek pemahaman</p><h1 id="game-title" class="mt-2 font-display text-3xl font-semibold">Kuis Kilat</h1></div><span class="font-mono text-xs text-muted">5 SOAL / 3 NYAWA / 30 DETIK</span></div>
-      <div class="mx-auto max-w-3xl border border-line bg-panel">
-        <div id="quizIntro" class="px-6 py-10 text-center sm:px-12"><span class="mx-auto grid h-14 w-14 place-items-center border border-coral/40 bg-coral/10 text-coral"><i class="fa-solid fa-bolt text-xl" aria-hidden="true"></i></span><p class="mt-5 font-mono text-xs uppercase tracking-[.18em] text-coral">Tantangan fungsi</p><h2 class="mt-2 font-display text-2xl font-semibold">Siap uji refleks hitungmu?</h2><p class="mx-auto mt-3 max-w-md text-sm leading-6 text-muted">Lima pertanyaan tentang fungsi dipilih secara acak. Jawaban benar bernilai 20 poin. Hati-hati, tiga jawaban salah mengakhiri permainan.</p><button id="startQuiz" class="mt-7 inline-flex items-center gap-2 bg-coral px-5 py-3 text-sm font-bold text-ink transition hover:bg-[#ffb19e]">Mulai kuis <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i></button></div>
-        <div id="quizPlay" class="hidden">
-          <div class="border-b border-line p-5 sm:p-7"><div class="flex items-center justify-between gap-4 text-xs"><span id="questionCount" class="font-mono text-muted">SOAL 1 / 5</span><span id="livesDisplay" class="flex gap-1.5 text-coral" aria-label="3 nyawa"><i class="fa-solid fa-heart" aria-hidden="true"></i><i class="fa-solid fa-heart" aria-hidden="true"></i><i class="fa-solid fa-heart" aria-hidden="true"></i></span><span class="font-mono text-gold"><i class="fa-regular fa-clock mr-1.5" aria-hidden="true"></i><span id="timerDisplay">30</span> dtk</span></div><div class="progress-track mt-4"><div id="quizProgress" class="progress-fill" style="width:0%"></div></div></div>
-          <div class="p-5 sm:p-7"><p id="questionCategory" class="font-mono text-[10px] uppercase tracking-[.16em] text-mint">FUNGSI</p><h2 id="questionText" class="mt-3 font-display text-xl font-semibold leading-snug sm:text-2xl"></h2><div id="answerOptions" class="mt-6 grid gap-3 sm:grid-cols-2"></div><p id="answerFeedback" class="mt-4 min-h-5 text-sm" aria-live="polite"></p><button id="nextQuestion" class="mt-3 hidden items-center gap-2 bg-mint px-4 py-3 text-sm font-bold text-ink transition hover:bg-[#b6f0cf]">Lanjut <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i></button></div>
+      <div class="section-heading">
+        <div><span class="eyebrow coral-text">MODUL 02 / CEK PEMAHAMAN</span>
+          <h1 id="game-title" class="section-title">Quiz</h1>
         </div>
-        <div id="quizResult" class="hidden px-6 py-10 text-center sm:px-12" aria-live="polite"></div>
+        <span class="topic-chip">3 LEVEL / PROGRES TERSIMPAN</span>
       </div>
-      <p class="mx-auto mt-4 max-w-3xl text-center text-xs text-muted">Skor tertinggi sesi ini: <span id="bestScore" class="font-mono text-mint">0</span> poin</p>
+      <div class="quiz-shell">
+        <div id="quizIntro" class="quiz-intro">
+          <span class="quiz-symbol"><i class="bi bi-stars"></i></span>
+          <span class="eyebrow coral-text">TANTANGAN FUNGSI</span>
+          <h2>Belajar satu level demi satu level</h2>
+          <p>Tuntaskan 10 soal hitungan untuk membuka level berikutnya. Setiap soal memiliki batas waktu 60 detik.
+            Latihan berfokus pada evaluasi fungsi, operasi dan komposisi, invers, serta fungsi linear. Angka dan urutan
+            soal berubah setiap kali level dicoba ulang; setiap jawaban dilengkapi pembahasan. Kamu punya 3 nyawa.</p>
+          <div id="levelList" class="row g-3 mt-2" aria-label="Pilih level kuis"></div>
+        </div>
+        <div id="quizPlay" class="d-none">
+          <div class="quiz-topline">
+            <span id="questionCount" class="mono-label">SOAL 1 / 10</span>
+            <span id="livesDisplay" class="lives-display" aria-label="3 nyawa"><i class="bi bi-heart-fill"></i><i
+                class="bi bi-heart-fill"></i><i class="bi bi-heart-fill"></i></span>
+            <span class="timer-label" aria-label="Waktu tersisa untuk soal"><i class="bi bi-clock me-1"></i><span
+                id="timerDisplay">60</span> dtk</span>
+          </div>
+          <p id="quizLevelLabel" class="lesson-number quiz-level-label mt-3"></p>
+          <div class="progress app-progress" role="progressbar" aria-label="Progres kuis" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="0">
+            <div id="quizProgress" class="progress-bar" style="width:0%"></div>
+          </div>
+          <div class="quiz-question">
+            <p id="questionCategory" class="lesson-number">FUNGSI</p>
+            <h2 id="questionText"></h2>
+            <div id="answerOptions" class="row g-3 mt-2"></div>
+            <p id="answerFeedback" class="answer-feedback" aria-live="polite"></p>
+            <button id="nextQuestion" class="btn btn-sage d-none">Lanjut <i class="bi bi-arrow-right ms-1"></i></button>
+          </div>
+        </div>
+        <div id="quizResult" class="quiz-result d-none" aria-live="polite"></div>
+      </div>
+      <p class="best-score">Nilai terbaik: <strong id="bestScore">0</strong> poin</p>
     </section>
   </main>
 
-  <footer class="border-t border-line"><div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-muted sm:px-6 lg:px-8"><span class="font-display font-semibold text-paper">RUANG HITUNG <span class="font-sans font-normal text-muted">/ Belajar selangkah demi selangkah</span></span><span>Dibuat untuk memahami, bukan sekadar menghafal.</span></div></footer>
+  <div id="appNotice" class="toast-note d-none" role="status" aria-live="polite"></div>
+  <footer class="app-footer">
+    <div class="container d-flex flex-wrap justify-content-between gap-2"><span><strong>RUANG HITUNG</strong> / Belajar
+        selangkah demi selangkah</span><span>Dibuat untuk memahami, bukan sekadar menghafal.</span></div>
+  </footer>
 
-  <script src="./script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script type="module" src="./script.js"></script>
 </body>
+
 </html>
