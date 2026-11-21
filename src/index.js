@@ -3,7 +3,7 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/") {
-      url.pathname = "/Index.HTML";
+      url.pathname = "/index.html";
     }
 
     return env.ASSETS.fetch(new Request(url, request));
